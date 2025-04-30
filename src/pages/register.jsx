@@ -6,13 +6,13 @@ export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
+    const handleregister = () => {
         // Handle login logic here
         console.log('Login attempted with:', username, password);
     };
 
     return (
-        <section className="flex justify-center items-center h-screen">
+        <section className="flex justify-center items-center w-screen h-screen">
         <div className="w-[90vw] sm:w-[80vw] md:w-[500px] h-auto min-h-[60vh] bg-[#E9DFC3] flex rounded-[86px]">
             <div className="text-center w-full pt-9 flex-col">
             <div className="text-2xl sm:text-3xl font-bold">Join Us</div>
@@ -65,7 +65,7 @@ export default function Login() {
                 
                 <div className="flex justify-center">
                 <button type="submit"
-                    onClick={handleLogin}
+                    onClick={handleregister}
                     className="w-[150px] mt-8 text-2xl bg-[#ABA5F0] mb-5 border-2 border-black rounded-xl py-2"
                 >
                     Login

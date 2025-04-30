@@ -12,7 +12,7 @@ export default function Login() {
     };
 
     return (
-        <section className="flex justify-center items-center h-screen">
+        <section className="flex justify-center items-center h-screen w-screen">
         <div className="w-[90vw] sm:w-[80vw] md:w-[500px] h-auto min-h-[60vh] bg-[#E9DFC3] flex rounded-[86px]">
             <div className="text-center w-full pt-9 flex-col">
             <div className="text-2xl sm:text-3xl">Welcome Back!</div>
