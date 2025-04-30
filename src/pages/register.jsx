@@ -15,7 +15,7 @@ export default function Login() {
         <section className="flex justify-center items-center h-screen">
         <div className="w-[90vw] sm:w-[80vw] md:w-[500px] h-auto min-h-[60vh] bg-[#E9DFC3] flex rounded-[86px]">
             <div className="text-center w-full pt-9 flex-col">
-            <div className="text-2xl sm:text-3xl">Welcome Back!</div>
+            <div className="text-2xl sm:text-3xl font-bold">Join Us</div>
             
             <form>
             <div className="mt-8">
@@ -47,7 +47,20 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 required 
                 />
-                
+
+                <div className="flex-row flex ml-4 sm:ml-8 items-center mt-8">
+                <RectangleEllipsis className="w-8 h-8 sm:size-10" />
+                <div className="flex text-xl sm:text-2xl ml-2">
+                    Confirm Password
+                </div>
+                </div>
+                <input 
+                type="password" 
+                className="bg-[#FED2E2] border-2 rounded-2xl w-[80%] pl-3 h-[45px] mx-auto mt-4 flex justify-center text-[20px] items-center focus:bg-white" 
+                placeholder="Confirm Password" 
+                required 
+                />
+
                 <p className="justify-end text-end pr-8">Register Here</p>
                 
                 <div className="flex justify-center">
@@ -58,6 +71,8 @@ export default function Login() {
                     Login
                 </button>
                 </div>
+
+                
             </div>
             </form>
             </div>
