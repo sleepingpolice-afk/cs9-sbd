@@ -1,6 +1,38 @@
 "use client"
 
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 export default function Cards() {
+
+    const [items, setItems] = useState([]);
+    const [stores, setStores] = useState([]);
+
+    useEffect(() => {
+      axios
+        .get('https://sbd-express-wesleyfrederickoh.q7szht.easypanel.host/item')
+        .then((res) => {
+          console.log("Data fetched:", res.data); // 🔍 Check if this logs
+          if (res.data.success) {
+            setItems(res.data.payload);
+          }
+        })
+        .catch((err) => {
+          console.error("Fetch error:", err);
+        });
+    }, []);
+
+      useEffect(() => {
+        axios
+    .get('https://sbd-express-wesleyfrederickoh.q7szht.easypanel.host/store/getAll')
+    .then((res) => {
+      console.log("Stores fetched:", res.data);
+      if (Array.isArray(res.data)) {
+        setStores(res.data);
+      }
+    })
+      }, []);
+
     const response = {
         page: 1,
         results: [
@@ -42,22 +74,39 @@ export default function Cards() {
         ],
         };
 
+
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {response.results.map((item) => (
-            <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="relative h-48 w-full">
-                <img src={`${item.image}?random=${item.id}`} alt={item.title} className="w-full h-full object-cover" />
-            </div>
-            <div className="p-4">
-                <h3 className="text-lg font-semibold mb-2 line-clamp-1">{item.title}</h3>
-                <p className="text-gray-600 line-clamp-3">{item.body}</p>
-                <button className="mt-4 bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-700 transition-colors">
-                Read More
-                </button>
-            </div>
-            </div>
-        ))}
+        {items.map((item) => {
+      // Ensure stores and item.store_id are available
+      const store = stores.find(
+        (store) => store.id.trim().toLowerCase() === item.store_id.trim().toLowerCase()
+      );
+
+      console.log("Item store_id:", item.store_id);
+console.log("All store IDs:", stores.map(s => s.id));
+
+      
+      if (!store) {
+        console.log(`No store found for item with store_id: ${item.store_id}`);
+      }
+
+      return (
+        <div key={item.id} className="bg-[#FED2E2] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+          <div className="relative h-48 w-full">
+            <img src={`${item.image_url}?random=${item.id}`} alt={item.name} className="w-full h-full object-cover" />
+          </div>
+          <div className="p-4">
+            <h3 className="text-lg font-semibold mb-2 line-clamp-1">{item.name}</h3>
+            <p className="text-gray-600 line-clamp-3">Stock: {item.stock}</p>
+            <p className="text-gray-600 line-clamp-3">Rp. {item.price}</p>
+            <p className="text-gray-600 line-clamp-3">Store: {store ? store.name : 'Unknown Store'}</p>
+          </div>
+        </div>
+      );
+})}
+
         </div>
     )
 }

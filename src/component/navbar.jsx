@@ -24,9 +24,8 @@ export default function Navbar() {
                 </p>
                 </li>
                 <li>
-                <p className="font-semibold hover:cursor-pointer hover:brightness-75" onClick={() => navigate("/login")} title="Logout" >
-                    Logout
-                </p>
+                <p className="font-semibold hover:cursor-pointer hover:brightness-75" onClick={() => { localStorage.removeItem('isLoggedIn'); navigate('/login'); }} title="Logout">Logout</p>
+
                 </li>
             </ul>
             </div>

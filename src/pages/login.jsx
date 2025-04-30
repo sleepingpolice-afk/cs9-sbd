@@ -1,14 +1,44 @@
 import { RectangleEllipsis } from 'lucide-react';
 import { UserRound } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
 
 export default function Login() {
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
 
-    const handleLogin = () => {
-        // Handle login logic here
-        console.log('Login attempted with:', username, password);
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        if (!email || !password) {
+            alert('Masukkan email dan password dong, untuk abang" yg mau periksa bisa pakai email: netlab1234@mail.com, password: netlab2024! (dengan tanda serunya)');
+            return;
+        }
+
+        try {
+            const res = await axios.post(
+                `https://sbd-express-wesleyfrederickoh.q7szht.easypanel.host/user/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+            );
+        
+            if (res.data.success) {
+                navigate('/shop');
+            } else {
+                alert('Login failed: ' + (res.data.message || 'Unknown error'));
+            }
+            
+            if (res.data.success) {
+                localStorage.setItem('isLoggedIn', 'true');
+                navigate('/shop');
+            }
+
+            
+        } catch (error) {
+            console.error('Login failed:', error.response?.data || error.message);
+        }
     };
 
     return (
@@ -22,14 +52,14 @@ export default function Login() {
                 <div className="flex-row flex ml-4 sm:ml-8 items-center">
                 <UserRound className="w-8 h-8 sm:size-10" />
                 <div className="flex text-xl sm:text-2xl ml-2">
-                    Username
+                    Email
                 </div>
                 </div>
                 <input 
                 className="bg-[#FED2E2] border-2 rounded-2xl w-[80%] pl-3 h-[45px] mx-auto mt-4 flex justify-center text-[20px] items-center focus:bg-white" 
-                placeholder="Username" 
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 />
                 
@@ -48,7 +78,7 @@ export default function Login() {
                 required 
                 />
                 
-                <p className="justify-end text-end pr-8">Register Here</p>
+                <p className="justify-end text-end pr-15 hover:cursor-pointer hover:text-blue-300 hover:transition-colors hover:duration-300" onClick={() => navigate('/register')} >Register Here</p>
                 
                 <div className="flex justify-center">
                 <button type="submit"
