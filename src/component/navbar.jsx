@@ -9,7 +9,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   
   return (
-    <nav className="bg-slate-800 text-white p-4 w-full ">
+    <nav className="bg-[#9300A5] text-white p-4 w-full ">
         <div className="flex flex-wrap justify-between items-center">
             <div className="text-xl font-regular">What's in Store</div>
             
